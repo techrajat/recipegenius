@@ -9,10 +9,6 @@ const port = 5000;
 app.use(cors())
 app.use(express.urlencoded({extended: true}));
 
-app.get('/golu', (req, res)=>{
-    res.send("hi golu");
-});
-
 app.listen(port, ()=>{
     console.log(`Server started successfully at http://${hostname}:${port}`);
 });

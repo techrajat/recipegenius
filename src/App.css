@@ -1,0 +1,49 @@
+body{
+    background-color: #F5F7FA;
+}
+.navbar{
+    background-color: #F5F7FA;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+#logo{
+    width: 104px;
+    margin: 0 10px 0 10px;
+}
+.nav-link{
+    color: black;
+    font-weight: 500;
+}
+.nav-link:hover{
+    color: green;
+}
+.loginBt{
+    width: 90px;
+    font-weight: 500;
+}
+@media(width >= 992px){
+    .search{
+        width: 350px;
+    }
+    .nav-item:hover .dropdown-menu {
+        display: block;
+    }
+    .navbar li{
+        margin: 0 5px 0 5px;
+    }
+}
+@media(width < 992px){
+    #navContent{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .navbar li, .navbar form{
+        margin: 5px 0 5px 0;
+    }
+    .navbar form input{
+        font-size: smaller;
+    }
+}
