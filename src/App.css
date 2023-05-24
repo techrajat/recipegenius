@@ -1,49 +1,108 @@
-body{
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* Navbar begins :- */
+body {
     background-color: #F5F7FA;
 }
-.navbar{
+
+.navbar {
     background-color: #F5F7FA;
     position: sticky;
     top: 0;
     z-index: 1;
 }
-#logo{
+
+#logo {
     width: 104px;
     margin: 0 10px 0 10px;
 }
-.nav-link{
+
+.nav-link {
     color: black;
     font-weight: 500;
 }
-.nav-link:hover{
+
+.nav-link:hover {
     color: green;
 }
-.loginBt{
+
+.loginBt {
     width: 90px;
     font-weight: 500;
 }
-@media(width >= 992px){
-    .search{
+
+@media(width >=992px) {
+    .search {
         width: 350px;
     }
+
     .nav-item:hover .dropdown-menu {
         display: block;
     }
-    .navbar li{
+
+    .navbar li {
         margin: 0 5px 0 5px;
     }
 }
-@media(width < 992px){
-    #navContent{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-    }
-    .navbar li, .navbar form{
+
+@media(width < 992px) {
+
+    .navbar li,
+    .navbar form {
         margin: 5px 0 5px 0;
     }
-    .navbar form input{
+
+    .navbar form input {
         font-size: smaller;
     }
 }
+
+/* Navbar ends :- */
+
+/* Hero section begins */
+
+.hero {
+    background-image: url('./images/hero.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.recipeForm{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60.04px);
+}
+
+.recipeForm h1{
+    color: #333;
+}
+
+.recipeForm button{
+    font-size: larger;
+}
+
+.recipeForm input{
+    width: 350px;
+    margin: 25px;
+    padding: 10px;
+    font-size: large;
+    outline: none;
+    border: none;
+    opacity: 0.7;
+}
+
+@media(width < 992px) {
+    .recipeForm input{
+        width: 310px;
+    }
+}
+
+/* Hero section ends */
