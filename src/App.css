@@ -6,6 +6,7 @@
 }
 
 /* Navbar begins :- */
+
 body {
     background-color: #F5F7FA;
 }
@@ -36,6 +37,21 @@ body {
     font-weight: 500;
 }
 
+#modalClose{
+    position: relative;
+    top: -51px;
+    padding: 10px;
+    border: none;
+}
+
+#modalClose:hover{
+    background-color: #DC3545;
+}
+
+#modalClose i{
+    font-size: larger;
+}
+
 @media(width >=992px) {
     .search {
         width: 350px;
@@ -48,17 +64,32 @@ body {
     .navbar li {
         margin: 0 5px 0 5px;
     }
+    
+    #custom-modal{
+        width: 500px;
+    }
+
+    #modalClose{
+        right: -420px;
+    }
 }
 
-@media(width < 992px) {
 
-    .navbar li,
-    .navbar form {
+@media(width < 992px) {
+    .navbar li, .navbar form {
         margin: 5px 0 5px 0;
     }
 
     .navbar form input {
         font-size: smaller;
+    }
+
+    #custom-modal{
+        width: 300px;
+    }
+
+    #modalClose{
+        right: -222px;
     }
 }
 
