@@ -2,6 +2,8 @@ import React from 'react'
 import Modal from 'react-modal';
 import { useState } from 'react';
 import '../App.css'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 let customStyles = {
   content: {
@@ -15,6 +17,19 @@ let customStyles = {
 };
 
 function Login() {
+
+  // Form validation :-
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
 
   // Login modal :-
   let subtitle;
@@ -43,18 +58,27 @@ function Login() {
       >
           <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Login</h2>
           <button onClick={closeModal} id='modalClose'><i class="fa-solid fa-xmark"></i></button>
-          <form action='/login' method='post'>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email id"/>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="text" class="form-control" id="password" name="password" placeholder="Enter your password"/>
-          </div>
-          <button type="submit" class="btn btn-success my-3 loginBt">Sign in</button>
-          <p>Don't have an account? <a href="/">Register here</a></p>
-          </form>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+              <Form.Group className='mb-3' controlId="validationCustom01">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  required
+                  type="email"
+                  placeholder="Enter your email id"
+                />
+                <Form.Control.Feedback type='invalid'>Enter a valid email id</Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group className='mb-3' controlId="validationCustom02">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  required
+                  type="password"
+                  placeholder="Enter your password"
+                />
+                <Form.Control.Feedback type='invalid'>Enter a password</Form.Control.Feedback>
+              </Form.Group>
+            <Button className='bg-success my-3' type="submit">Login</Button>
+          </Form>
       </Modal>
     </div>
   )
