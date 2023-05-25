@@ -1,54 +1,75 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import '../App.css'
 import Logo from '../images/Logo.png'
 import Login from './Login';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
+
+    const [modalIsOpen, setIsOpen] = useState(false);
+    function openModal() {
+        setIsOpen(true);
+    }
+    function closeModal() {
+        setIsOpen(false);
+    }
+
+    useEffect(()=>{
+        if(modalIsOpen){
+            document.querySelector('.navbar').style.pointerEvents = 'none';
+            document.querySelector('.navbar').style.opacity = 0.5;
+        }
+        else{
+            document.querySelector('.navbar').style.pointerEvents = 'auto';
+            document.querySelector('.navbar').style.opacity = 1;
+        }
+    }, [modalIsOpen]) // Whenever the value of modalIsOpen will change, this code will activate / deactivate the navbar accordingly.
+
   return (
     <div>
         <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
-            <a className="navbar-brand" href="/"><img src={Logo} alt="logo" id='logo' /></a>
+            <Link className="navbar-brand" to="/"><img src={Logo} alt="logo" id='logo' /></Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0" id="navContent">
                 <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="/">Home</a>
+                <Link className="nav-link" aria-current="page" to="/">Home</Link>
                 </li>
                 <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Recipes
-                </a>
+                </Link>
                 <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="/">Breakfast</a></li>
-                    <li><a className="dropdown-item" href="/">Lunch</a></li>
-                    <li><a className="dropdown-item" href="/">Dinner</a></li>
+                    <li><Link className="dropdown-item" to="/">Breakfast</Link></li>
+                    <li><Link className="dropdown-item" to="/">Lunch</Link></li>
+                    <li><Link className="dropdown-item" to="/">Dinner</Link></li>
                 </ul>
                 </li>
                 <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Cuisines
-                </a>
+                </Link>
                 <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="/">Italian</a></li>
-                    <li><a className="dropdown-item" href="/">Mexican</a></li>
-                    <li><a className="dropdown-item" href="/">Chinese</a></li>
-                    <li><a className="dropdown-item" href="/">Indian</a></li>
-                    <li><a className="dropdown-item" href="/">Thai</a></li>
-                    <li><a className="dropdown-item" href="/">Japanese</a></li>
-                    <li><a className="dropdown-item" href="/">French</a></li>
-                    <li><a className="dropdown-item" href="/">Spanish</a></li>
-                    <li><a className="dropdown-item" href="/">American</a></li>
-                    <li><a className="dropdown-item" href="/">More...</a></li>
+                    <li><Link className="dropdown-item" to="/">Italian</Link></li>
+                    <li><Link className="dropdown-item" to="/">Mexican</Link></li>
+                    <li><Link className="dropdown-item" to="/">Chinese</Link></li>
+                    <li><Link className="dropdown-item" to="/">Indian</Link></li>
+                    <li><Link className="dropdown-item" to="/">Thai</Link></li>
+                    <li><Link className="dropdown-item" to="/">Japanese</Link></li>
+                    <li><Link className="dropdown-item" to="/">French</Link></li>
+                    <li><Link className="dropdown-item" to="/">Spanish</Link></li>
+                    <li><Link className="dropdown-item" to="/">American</Link></li>
+                    <li><Link className="dropdown-item" to="/">More...</Link></li>
                 </ul>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="/">Restaurants</a>
+                <Link className="nav-link" aria-current="page" to="/">Restaurants</Link>
                 </li>
                 <li className="nav-item">
-                <Login></Login>
+                    <Login modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal}/>
                 </li>
             </ul>
             <form className="d-flex" role="search">
