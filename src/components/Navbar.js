@@ -1,6 +1,7 @@
 import React from 'react'
 import '../App.css'
 import Logo from '../images/Logo.png'
+import Login from './Login';
 
 function Navbar() {
   return (
@@ -47,7 +48,7 @@ function Navbar() {
                 <a className="nav-link" aria-current="page" href="/">Restaurants</a>
                 </li>
                 <li className="nav-item">
-                <button type="button" className="btn btn-success loginBt">Login</button>
+                <Login></Login>
                 </li>
             </ul>
             <form className="d-flex" role="search">
