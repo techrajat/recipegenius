@@ -1,9 +1,90 @@
-import React from 'react'
+import React from 'react';
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
 function Registration() {
+
+  // Form validation :-
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+  };
+
   return (
     <div>
-      Registration page
+      <Form noValidate validated={validated} onSubmit={handleSubmit} id="regForm">
+      <h3 id='regHead'>Register</h3>
+      <Row className="mb-3">
+        <Form.Group as={Col} md="4" controlId="validationCustom01" className='my-2'>
+          <Form.Label className='my-1'>First name</Form.Label>
+          <Form.Control
+            required
+            type="text"
+            placeholder="First name"
+            pattern="[A-Za-z]+"
+          />
+          <Form.Control.Feedback type="invalid">Enter a valid first name</Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group as={Col} md="4" controlId="validationCustom02" className='my-2'>
+          <Form.Label className='my-1'>Last name</Form.Label>
+          <Form.Control
+            required
+            type="text"
+            placeholder="Last name"
+            pattern="[A-Za-z]+"
+          />
+          <Form.Control.Feedback type="invalid">Enter a valid last name</Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group as={Col} md="4" controlId="validationCustom03" className='my-2'>
+          <Form.Label className='my-1'>Phone</Form.Label>
+          <Form.Control
+            required
+            type="tel"
+            placeholder="Phone number"
+            pattern="[0-9]{10}"
+          />
+          <Form.Control.Feedback type="invalid">Enter a valid phone number</Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group as={Col} md="4" controlId="validationCustom04" className='my-2'>
+          <Form.Label className='my-1'>Email</Form.Label>
+          <Form.Control 
+            required
+            type="email" 
+            placeholder="Email" 
+          />
+          <Form.Control.Feedback type="invalid">
+            Enter a valid email id
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group as={Col} md="4" controlId="validationCustom05" className='my-2'>
+          <Form.Label className='my-1'>Password</Form.Label>
+          <Form.Control 
+            id="password"
+            required
+            type="password" 
+            placeholder="Password" 
+            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+          />
+          <Form.Control.Feedback type="invalid">
+            Please should contain : <br/>
+            - At least 8 characters <br/>
+            - At least 1 alphabet <br/>
+            - At least 1 number <br/>
+            - At least 1 special character (@, $, !, %, *, #, ?, &)
+          </Form.Control.Feedback>
+        </Form.Group>
+      </Row>
+      <Button type="submit">Submit</Button>
+      </Form>
     </div>
   )
 }
