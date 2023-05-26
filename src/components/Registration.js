@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -18,6 +18,17 @@ function Registration(props) {
     }
     setValidated(true);
   };
+
+  // Fetching warning message after form submission :-
+  const handleRegistration=async()=>{
+    let data = await fetch(`${props.server}/auth/regWarn`);
+    let parsedData = await data.text();
+    if(parsedData && document.querySelector('.warn'))
+      document.querySelector('.warn').innerHTML = parsedData;
+  };
+  useEffect(()=>{
+    handleRegistration();
+  });
 
   return (
     <div>
@@ -89,6 +100,7 @@ function Registration(props) {
         </Form.Group>
       </Row>
       <Button type="submit">Submit</Button>
+      <p class="warn"></p>
       </Form>
     </div>
   )
