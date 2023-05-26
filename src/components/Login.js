@@ -35,7 +35,7 @@ function Login(props) {
   let subtitle;
   function afterOpenModal() {
     subtitle.style.color = 'rgb(78, 65, 65)';
-    subtitle.style.textDecoration = 'underline';
+    subtitle.style.textDecorationLine = 'underline';
   }
 
   return (

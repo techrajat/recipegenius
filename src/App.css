@@ -52,7 +52,7 @@ body {
     font-size: larger;
 }
 
-@media(width >=992px) {
+@media(width >= 992px) {
     .search {
         width: 350px;
     }
@@ -137,3 +137,23 @@ body {
 }
 
 /* Hero section ends */
+
+/* Registration form begins :- */
+
+#regForm{
+    padding: 30px 30px 60px 30px;
+}
+
+#regHead{
+    color: green;
+    text-decoration-line: underline;
+    margin-bottom: 20px;
+}
+
+@media(width >= 992px){
+    #regForm{
+        margin-top: 20px;
+    }
+}
+
+/* Registration form ends :- */
