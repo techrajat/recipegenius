@@ -14,6 +14,7 @@ function Navbar() {
         setIsOpen(false);
     }
 
+    // Disable the navbar when modal is open :-
     useEffect(()=>{
         if(modalIsOpen){
             document.querySelector('.navbar').style.pointerEvents = 'none';
@@ -25,6 +26,16 @@ function Navbar() {
         }
     }, [modalIsOpen]) // Whenever the value of modalIsOpen will change, this code will activate / deactivate the navbar accordingly.
 
+    // Close the navbar when a link is clicked in mobile view :-
+    useEffect(()=>{
+        if(window.innerWidth < 992){
+            document.querySelectorAll('.mobileToggle').forEach((element)=>{
+                element.setAttribute("data-bs-toggle", "collapse");
+                element.setAttribute("data-bs-target", "#navbarSupportedContent");
+            });
+        }
+    }, [])
+
   return (
     <div>
         <nav className="navbar navbar-expand-lg">
@@ -35,7 +46,7 @@ function Navbar() {
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0" id="navContent">
-                <li className="nav-item">
+                <li className="nav-item mobileToggle">
                 <Link className="nav-link" aria-current="page" to="/">Home</Link>
                 </li>
                 <li className="nav-item dropdown">
@@ -43,9 +54,9 @@ function Navbar() {
                     Recipes
                 </Link>
                 <ul className="dropdown-menu">
-                    <li><Link className="dropdown-item" to="/">Breakfast</Link></li>
-                    <li><Link className="dropdown-item" to="/">Lunch</Link></li>
-                    <li><Link className="dropdown-item" to="/">Dinner</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Breakfast</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Lunch</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Dinner</Link></li>
                 </ul>
                 </li>
                 <li className="nav-item dropdown">
@@ -53,22 +64,22 @@ function Navbar() {
                     Cuisines
                 </Link>
                 <ul className="dropdown-menu">
-                    <li><Link className="dropdown-item" to="/">Italian</Link></li>
-                    <li><Link className="dropdown-item" to="/">Mexican</Link></li>
-                    <li><Link className="dropdown-item" to="/">Chinese</Link></li>
-                    <li><Link className="dropdown-item" to="/">Indian</Link></li>
-                    <li><Link className="dropdown-item" to="/">Thai</Link></li>
-                    <li><Link className="dropdown-item" to="/">Japanese</Link></li>
-                    <li><Link className="dropdown-item" to="/">French</Link></li>
-                    <li><Link className="dropdown-item" to="/">Spanish</Link></li>
-                    <li><Link className="dropdown-item" to="/">American</Link></li>
-                    <li><Link className="dropdown-item" to="/">More...</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Italian</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Mexican</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Chinese</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Indian</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Thai</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Japanese</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">French</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Spanish</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">American</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">More...</Link></li>
                 </ul>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item mobileToggle">
                 <Link className="nav-link" aria-current="page" to="/">Restaurants</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item mobileToggle">
                     <Login modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal}/>
                 </li>
             </ul>
