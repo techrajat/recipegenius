@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
-function Registration() {
+function Registration(props) {
 
   // Form validation :-
   const [validated, setValidated] = useState(false);
@@ -21,7 +21,7 @@ function Registration() {
 
   return (
     <div>
-      <Form noValidate validated={validated} onSubmit={handleSubmit} id="regForm">
+      <Form action={`${props.server}/auth/register`} method='post' noValidate validated={validated} onSubmit={handleSubmit} id="regForm">
       <h3 id='regHead'>Register</h3>
       <Row className="mb-3">
         <Form.Group as={Col} md="4" controlId="validationCustom01" className='my-2'>
@@ -29,6 +29,7 @@ function Registration() {
           <Form.Control
             required
             type="text"
+            name='firstName'
             placeholder="First name"
             pattern="[A-Za-z]+"
           />
@@ -39,6 +40,7 @@ function Registration() {
           <Form.Control
             required
             type="text"
+            name='lastName'
             placeholder="Last name"
             pattern="[A-Za-z]+"
           />
@@ -49,6 +51,7 @@ function Registration() {
           <Form.Control
             required
             type="tel"
+            name='phone'
             placeholder="Phone number"
             pattern="[0-9]{10}"
           />
@@ -59,6 +62,7 @@ function Registration() {
           <Form.Control 
             required
             type="email" 
+            name='email'
             placeholder="Email" 
           />
           <Form.Control.Feedback type="invalid">
@@ -71,6 +75,7 @@ function Registration() {
             id="password"
             required
             type="password" 
+            name='password'
             placeholder="Password" 
             pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
           />

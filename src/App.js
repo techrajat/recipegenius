@@ -10,6 +10,8 @@ import{
 } from 'react-router-dom';
 
 export default function App() {
+  const server = 'http://localhost:5000/api';
+
   return (
     <div>
       <Router>
@@ -18,7 +20,7 @@ export default function App() {
           {/* Router displays one element at a time. Hence the <login> component should not be present
           in the router as it is displayed over all the components. */}
           <Route exact path='/' element={<Hero/>}></Route>
-          <Route exact path='/register' element={<Registration/>}></Route>
+          <Route exact path='/register' element={<Registration server={server}/>}></Route>
         </Routes>
       </Router>
     </div>
