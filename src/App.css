@@ -98,7 +98,7 @@ body {
 /* Hero section begins */
 
 .hero {
-    background-image: url('./images/hero.jpg');
+    background-image: url('./images/Hero.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
