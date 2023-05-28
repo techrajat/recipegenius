@@ -54,7 +54,7 @@ function Registration(props) {
       props.openModal();
     }
     if (response.status === 400){
-      document.querySelector('.warn').innerHTML = jsonRes.error;
+      document.querySelector('.regWarn').innerHTML = jsonRes.error;
     }
     if (response.status === 500){
       console.log(jsonRes.error);
@@ -141,7 +141,7 @@ function Registration(props) {
         </Form.Group>
       </Row>
       <Button type="submit">Submit</Button>
-      <p class="warn"></p>
+      <p class="regWarn"></p>
       </Form>
     </div>
   )

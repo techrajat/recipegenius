@@ -49,8 +49,8 @@ function Login(props) {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({ // body should be in JSON format
-        email: document.getElementById('validationCustom01').value,
-        password: document.getElementById('validationCustom02').value
+        email: document.getElementById('validationCustom06').value,
+        password: document.getElementById('validationCustom07').value
       })
     });
     const jsonRes = await response.json();
@@ -62,7 +62,7 @@ function Login(props) {
       props.closeModal();
     }
     if (response.status === 400){
-      document.querySelector('.warn').innerHTML = jsonRes.error;
+      document.querySelector('.logWarn').innerHTML = jsonRes.error;
     }
     if (response.status === 500){
       console.log(jsonRes.error);
@@ -91,7 +91,7 @@ function Login(props) {
           <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Login</h2>
           <button onClick={props.closeModal} id='modalClose'><i class="fa-solid fa-xmark"></i></button>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group className='mb-3' controlId="validationCustom01">
+            <Form.Group className='mb-3' controlId="validationCustom06">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 required
@@ -101,7 +101,7 @@ function Login(props) {
               />
               <Form.Control.Feedback type='invalid'>Enter a valid email id</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className='mb-3' controlId="validationCustom02">
+            <Form.Group className='mb-3' controlId="validationCustom07">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 required
@@ -113,7 +113,7 @@ function Login(props) {
             </Form.Group>
             <button type="submit" class="btn btn-success my-3 loginBt">Login</button>
             <p>Don't have an account? <Link to="/register" onClick={props.closeModal}>Register here</Link></p>
-            <p class="warn"></p>
+            <p class="logWarn"></p>
           </Form>
       </Modal>
     </div>
