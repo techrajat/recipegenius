@@ -8,7 +8,7 @@ const port = 5000;
 mongoose.connect("mongodb://localhost:27017/recipeHub");
 
 app.use(cors())
-app.use(express.urlencoded({extended: true}));
+app.use((express.json()));
 
 // Routes :-
 app.use('/api/auth', require('./routes/auth'));

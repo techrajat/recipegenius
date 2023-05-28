@@ -2,40 +2,29 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
-let warningMessage;
 router.post('/register', async (req, res)=>{
     try{
+        let user = await User.findOne({phone: req.body.phone, email: req.body.email})
+        if(user){
+            return res.status(400).json({errors: "** User already registered"});
+        }
+
         let phoneExists = await User.findOne({phone: req.body.phone});
-        let emailExists = await User.findOne({email: req.body.email});
-
-        if(phoneExists && emailExists){
-            warningMessage = "** User already exists";
-            res.redirect('http://localhost:3000/register');
-            return;
-        }
         if(phoneExists){
-            warningMessage = "** Phone number already registered";
-            res.redirect('http://localhost:3000/register');
-            return;
-        }
-        if(emailExists){
-            warningMessage = "** Email id already registered";
-            res.redirect('http://localhost:3000/register');
-            return;
+            return res.status(400).json({ errors: "** Phone number already registered" });
         }
 
-        let user = new User(req.body);
-        user.save();
-        res.redirect('http://localhost:3000/login');
+        let emailExists = await User.findOne({email: req.body.email});
+        if(emailExists){
+            return res.status(400).json({ errors: "** Email id already registered" });
+        }
+        
+        user = await User.create(req.body); // Create a new user
+        res.json(user);
     }
     catch{
-        warningMessage = "** Internal server error";
-        res.redirect('http://localhost:3000/register');
+        return res.status(500).json({ errors: "** Internal server error" });
     }
-});
-
-router.get('/regWarn', (req, res)=>{
-    res.send(warningMessage);
 });
 
 module.exports = router;
