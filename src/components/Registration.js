@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import '../App.css'
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -10,7 +11,7 @@ function Registration(props) {
   // Form validation :-
   const [validated, setValidated] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit1 = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -19,16 +20,45 @@ function Registration(props) {
     setValidated(true);
   };
 
-  // Fetching warning message after form submission :-
-  const handleRegistration=async()=>{
-    let data = await fetch(`${props.server}/auth/regWarn`);
-    let parsedData = await data.text();
-    if(parsedData && document.querySelector('.warn'))
-      document.querySelector('.warn').innerHTML = parsedData;
-  };
-  useEffect(()=>{
-    handleRegistration();
+  // Fetching the authorization token or the warning whether the user already exists :-
+  // Note: If the user submits the form on the webpage and hence makes a post request, then the
+  // response sent by the post request will open in a new webpage. We do not want the post request to 
+  // open a new page with its response. Hence, whenever the registration form is submitted, we will :-
+  // 1. Stop the form from getting submitted by using event.preventDefault() function.
+  // 2. Collect the values filled in the form and make a post request using the collected values with
+  //    function handleSubmit2().
+  // 3. Fecth the response and display it on the current webpage if it is a warning, or, save the
+  //    authorization token in the local storage and then redirect to another page.
+  const handleSubmit2=async(event)=>{
+    event.preventDefault(); // Prevent the form from getting submitted
+    // Make a post request to http://127.0.0.1:5000/api/auth/register with correct header and body :-
+    const data = await fetch(`${props.server}/auth/register`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ // body should be in JSON format
+        firstName: document.getElementById('validationCustom01').value,
+        lastName: document.getElementById('validationCustom02').value,
+        phone: document.getElementById('validationCustom03').value,
+        email: document.getElementById('validationCustom04').value,
+        password: document.getElementById('validationCustom05').value
+      })
   });
+    const response = await data.json();
+    // if (data.success){
+    //   save the token...
+    // }
+    if (data.status === 400){
+      document.querySelector('.warn').innerHTML = response.errors;
+    }
+  }
+
+  // Handle both form validation and authorization at the time of form submission :-
+  const handleSubmit=(event)=>{
+    handleSubmit1(event);
+    handleSubmit2(event);
+  }
 
   return (
     <div>
@@ -83,7 +113,6 @@ function Registration(props) {
         <Form.Group as={Col} md="4" controlId="validationCustom05" className='my-2'>
           <Form.Label className='my-1'>Password</Form.Label>
           <Form.Control 
-            id="password"
             required
             type="password" 
             name='password'

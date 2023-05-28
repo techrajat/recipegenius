@@ -10,7 +10,7 @@ import{
 } from 'react-router-dom';
 
 export default function App() {
-  const server = 'http://localhost:5000/api';
+  const server = 'http://127.0.0.1:5000/api';
 
   return (
     <div>
