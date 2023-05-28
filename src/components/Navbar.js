@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import '../App.css'
 import Logo from '../images/Logo.png'
 import Login from './Login';
 import { Link } from 'react-router-dom';
 
-function Navbar() {
-
-    const [modalIsOpen, setIsOpen] = useState(false);
-    function openModal() {
-        setIsOpen(true);
-    }
-    function closeModal() {
-        setIsOpen(false);
-    }
-
+function Navbar(props) {
     // Disable the navbar when modal is open :-
     useEffect(()=>{
-        if(modalIsOpen){
+        if(props.modalIsOpen){
             document.querySelector('.navbar').style.pointerEvents = 'none';
             document.querySelector('.navbar').style.opacity = 0.5;
         }
@@ -24,14 +15,15 @@ function Navbar() {
             document.querySelector('.navbar').style.pointerEvents = 'auto';
             document.querySelector('.navbar').style.opacity = 1;
         }
-    }, [modalIsOpen]) // Whenever the value of modalIsOpen will change, this code will activate / deactivate the navbar accordingly.
+    }, [props.modalIsOpen]) // Whenever the value of modalIsOpen will change, this code will activate / deactivate the navbar accordingly.
 
     // Close the navbar when a link is clicked in mobile view :-
     useEffect(()=>{
         if(window.innerWidth < 992){
             document.querySelectorAll('.mobileToggle').forEach((element)=>{
-                element.setAttribute("data-bs-toggle", "collapse");
-                element.setAttribute("data-bs-target", "#navbarSupportedContent");
+                element.addEventListener('click', ()=>{
+                    document.querySelector('.navbar-toggler').click();
+                });
             });
         }
     }, [])
@@ -80,7 +72,7 @@ function Navbar() {
                 <Link className="nav-link" aria-current="page" to="/">Restaurants</Link>
                 </li>
                 <li className="nav-item mobileToggle">
-                    <Login modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal}/>
+                    <Login server={props.server} modalIsOpen={props.modalIsOpen} openModal={props.openModal} closeModal={props.closeModal}/>
                 </li>
             </ul>
             <form className="d-flex" role="search">

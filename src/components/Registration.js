@@ -5,10 +5,12 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { useNavigate } from 'react-router-dom'; // Helps in navigating to a component in react
 
 function Registration(props) {
+  const navigate = useNavigate();
 
-  // Form validation :-
+  // Registration form validation :-
   const [validated, setValidated] = useState(false);
 
   const handleSubmit1 = (event) => {
@@ -20,19 +22,19 @@ function Registration(props) {
     setValidated(true);
   };
 
-  // Fetching the authorization token or the warning whether the user already exists :-
+  // Completing the registration or fetching warning whether the user already exists :-
   // Note: If the user submits the form on the webpage and hence makes a post request, then the
   // response sent by the post request will open in a new webpage. We do not want the post request to 
   // open a new page with its response. Hence, whenever the registration form is submitted, we will :-
   // 1. Stop the form from getting submitted by using event.preventDefault() function.
   // 2. Collect the values filled in the form and make a post request using the collected values with
   //    function handleSubmit2().
-  // 3. Fecth the response and display it on the current webpage if it is a warning, or, save the
-  //    authorization token in the local storage and then redirect to another page.
+  // 3. Fecth the response and display it on the current webpage if it is a warning, or, redirect to
+  //    the hero component with login modal open if the registration is successful.
   const handleSubmit2=async(event)=>{
     event.preventDefault(); // Prevent the form from getting submitted
     // Make a post request to http://127.0.0.1:5000/api/auth/register with correct header and body :-
-    const data = await fetch(`${props.server}/auth/register`, {
+    const response = await fetch(`${props.server}/auth/register`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -44,20 +46,30 @@ function Registration(props) {
         email: document.getElementById('validationCustom04').value,
         password: document.getElementById('validationCustom05').value
       })
-  });
-    const response = await data.json();
-    // if (data.success){
-    //   save the token...
-    // }
-    if (data.status === 400){
-      document.querySelector('.warn').innerHTML = response.errors;
+    });
+    const jsonRes = await response.json();
+    if (response.status === 200){
+      // Redirect to the hero component and open the login modal after successful registration :-
+      navigate('/');
+      props.openModal();
+    }
+    if (response.status === 400){
+      document.querySelector('.warn').innerHTML = jsonRes.error;
+    }
+    if (response.status === 500){
+      console.log(jsonRes.error);
     }
   }
 
   // Handle both form validation and authorization at the time of form submission :-
   const handleSubmit=(event)=>{
-    handleSubmit1(event);
-    handleSubmit2(event);
+    handleSubmit1(event)
+    let form = event.currentTarget;
+    // checkValidity() is a built-in JavScript function to check the validity of an HTML form according
+    // to the given rules.
+    if (form.checkValidity() === true) { // Make post request only if the form is validated.
+      handleSubmit2(event);
+    }
   }
 
   return (
