@@ -4,6 +4,7 @@ import { useState } from 'react';
 import '../App.css'
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 let customStyles = {
   content: {
@@ -17,25 +18,64 @@ let customStyles = {
 };
 
 function Login(props) {
-
-  // Form validation :-
-  const [validated, setValidated] = useState(false);
-
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
-  };
+  const navigate = useNavigate();
 
   // Login modal :-
   let subtitle;
   function afterOpenModal() {
     subtitle.style.color = 'rgb(78, 65, 65)';
     subtitle.style.textDecorationLine = 'underline';
+  }
+
+  // Login form validation :-
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit1=(event)=>{
+    let form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+  };
+
+  // Verifying login credentials :-
+  const handleSubmit2=async(event)=>{
+    event.preventDefault(); // Prevent the form from getting submitted
+    // Make a post request to http://127.0.0.1:5000/api/auth/login with correct header and body :-
+    const response = await fetch(`${props.server}/auth/login`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ // body should be in JSON format
+        email: document.getElementById('validationCustom01').value,
+        password: document.getElementById('validationCustom02').value
+      })
+    });
+    const jsonRes = await response.json();
+    if (response.status === 200){
+      // Save the token in local storage and then redirect to the hero component and close the login
+      // modal after succeful login :-
+      localStorage.setItem('token', jsonRes.authToken);
+      navigate('/');
+      props.closeModal();
+    }
+    if (response.status === 400){
+      document.querySelector('.warn').innerHTML = jsonRes.error;
+    }
+    if (response.status === 500){
+      console.log(jsonRes.error);
+    }
+  }
+
+  // Handle both form validation and login at the time of form submission :-
+  const handleSubmit=(event)=>{
+    handleSubmit1(event);
+    let form = event.currentTarget;
+    if (form.checkValidity() === true) { // Make post request only if the form is validated.
+      handleSubmit2(event);
+    }
   }
 
   return (
@@ -56,6 +96,7 @@ function Login(props) {
               <Form.Control
                 required
                 type="email"
+                name="email"
                 placeholder="Enter your email id"
               />
               <Form.Control.Feedback type='invalid'>Enter a valid email id</Form.Control.Feedback>
@@ -65,12 +106,14 @@ function Login(props) {
               <Form.Control
                 required
                 type="password"
+                name="password"
                 placeholder="Enter your password"
               />
               <Form.Control.Feedback type='invalid'>Enter a password</Form.Control.Feedback>
             </Form.Group>
             <button type="submit" class="btn btn-success my-3 loginBt">Login</button>
             <p>Don't have an account? <Link to="/register" onClick={props.closeModal}>Register here</Link></p>
+            <p class="warn"></p>
           </Form>
       </Modal>
     </div>
