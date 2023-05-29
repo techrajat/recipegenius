@@ -37,6 +37,10 @@ body {
     font-weight: 500;
 }
 
+.dropdown-divider{
+    margin: 2px;
+}
+
 #modalClose{
     position: relative;
     top: -51px;
@@ -91,6 +95,19 @@ body {
     #modalClose{
         right: -222px;
     }
+    .scrollbar{
+        height: 200px;
+        overflow-y: auto;
+    }
+}
+
+#userDropdown{
+    display: none;
+}
+
+.fa-user{
+    margin-right: 8px;
+    color: green;
 }
 
 /* Navbar ends :- */
