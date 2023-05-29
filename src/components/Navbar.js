@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../App.css'
 import Logo from '../images/Logo.png'
 import Login from './Login';
@@ -28,6 +28,41 @@ function Navbar(props) {
         }
     }, [])
 
+    // Check whether a user is logged in or not and then modify the navbar accordingly :-
+    const [login, setLogin] = useState(false);
+
+    const getUser=async()=>{ // Function for getting logged in user detais
+        let response = await fetch('http://127.0.0.1:5000/api/auth/getuser', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authToken': localStorage.getItem('token')
+            }
+        });
+        if(response.status === 200){
+            document.getElementById('navLoginBT').style.display = 'none';
+            document.getElementById('userDropdown').style.display = 'block';
+            let data = await response.json();
+            document.getElementById('username').innerHTML = "<i class='fa-solid fa-user'></i>"+data.userDetails.firstName+" "+data.userDetails.lastName;
+        }
+        else{
+            console.log("Wrong authorization token");
+        }
+    }
+    
+    useEffect(()=>{
+        if(login){
+            getUser(); // Get and display user's details when he/she logs in
+            // Logout the user if he/she clicks on the logout button :-
+            document.getElementById('logout').addEventListener('click', ()=>{
+                localStorage.removeItem('token');
+                setLogin(false);
+                document.getElementById('navLoginBT').style.display = 'block';
+                document.getElementById('userDropdown').style.display = 'none';
+            });
+        }
+    }, [login]);
+
   return (
     <div>
         <nav className="navbar navbar-expand-lg">
@@ -47,7 +82,9 @@ function Navbar(props) {
                 </Link>
                 <ul className="dropdown-menu">
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Breakfast</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Lunch</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Dinner</Link></li>
                 </ul>
                 </li>
@@ -55,24 +92,41 @@ function Navbar(props) {
                 <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Cuisines
                 </Link>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu scrollbar">
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Italian</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Mexican</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Chinese</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Indian</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Thai</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Japanese</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">French</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Spanish</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">American</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">More...</Link></li>
                 </ul>
                 </li>
                 <li className="nav-item mobileToggle">
                 <Link className="nav-link" aria-current="page" to="/">Restaurants</Link>
                 </li>
-                <li className="nav-item mobileToggle">
-                    <Login server={props.server} modalIsOpen={props.modalIsOpen} openModal={props.openModal} closeModal={props.closeModal}/>
+                <li className="nav-item mobileToggle" id='navLoginBT'>
+                <Login server={props.server} modalIsOpen={props.modalIsOpen} openModal={props.openModal} closeModal={props.closeModal} setLogin={setLogin}/>
+                </li>
+                <li className="nav-item dropdown" id='userDropdown'>
+                <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false" id='username'></Link>
+                <ul className="dropdown-menu">
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/" id='logout'>Liked videos</Link></li>
+                    <li><hr class="dropdown-divider"/></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/" id='logout'>Logout</Link></li>
+                </ul>
                 </li>
             </ul>
             <form className="d-flex" role="search">

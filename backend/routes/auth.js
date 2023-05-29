@@ -93,7 +93,7 @@ router.post('/login', async (req, res)=>{
 });
 
 // Endpoint for getting the user details after successful login :-
-router.post('/getuser', fetchuser, async (req, res)=>{
+router.get('/getuser', fetchuser, async (req, res)=>{
     try{
         let userID = req.user.id; // Get id from req.user given by the middleware
         // Send all the user details except the password :-

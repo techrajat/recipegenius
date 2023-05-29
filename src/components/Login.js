@@ -58,6 +58,7 @@ function Login(props) {
       // Save the token in local storage and then redirect to the hero component and close the login
       // modal after succeful login :-
       localStorage.setItem('token', jsonRes.authToken);
+      props.setLogin(true);
       navigate('/');
       props.closeModal();
     }
