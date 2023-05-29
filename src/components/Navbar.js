@@ -123,7 +123,7 @@ function Navbar(props) {
                 <li className="nav-item dropdown" id='userDropdown'>
                 <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false" id='username'></Link>
                 <ul className="dropdown-menu">
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/" id='logout'>Liked videos</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Liked videos</Link></li>
                     <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/" id='logout'>Logout</Link></li>
                 </ul>
