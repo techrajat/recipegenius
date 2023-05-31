@@ -206,25 +206,11 @@ body {
     justify-content: space-around;
     align-items: center;
     cursor: pointer;
-}
-
-.similar:hover{
-    color: darkgreen;
+    width: 950px;
 }
 
 .recipes img{
     border-radius: 15px;
-}
-
-.title pre{
-    font-family: 'Roboto', sans-serif;
-    font-size: large;
-    width: 600px;
-    text-align: center;
-}
-
-.title a, .title i{
-    color: green;
 }
 
 .divider{
@@ -249,6 +235,7 @@ body {
 
 .title {
     transition: transform 0.3s ease;
+    font-size: large;
 }
 
 /* Recipe section ends :- */

@@ -9,7 +9,7 @@ function Hero(props) {
     event.preventDefault();
     let str = document.getElementById('searchValue').value;
     if(str){
-      localStorage.setItem('str', str);
+      localStorage.setItem('searchStr', `https://api.spoonacular.com/recipes/complexSearch?apiKey=${props.apiKey}&query=${str}&number=100`);
       navigate('/recipeContainer');
     }
   };
