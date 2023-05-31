@@ -13,8 +13,8 @@ function RecipeContainer(props) {
 
   const fetchRecipe=async()=>{
     props.setProgress(10);
-    let str = localStorage.getItem('str');
-    let data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${props.apiKey}&query=${str}&number=100`);
+    let searchStr = localStorage.getItem('searchStr');
+    let data = await fetch(`${searchStr}`);
     props.setProgress(40);
     let recipes = await data.json();
     props.setProgress(70);
@@ -47,7 +47,7 @@ function RecipeContainer(props) {
         loader={<Spinner/>}
       >
       {recipeToShow.map((element)=>{
-        return <Recipe key={element.id} imgSrc={element.image} title={element.title}/>
+        return <Recipe key={element.id} imgSrc={element.image} title={element.title} recipeID={element.id} apiKey={props.apiKey}/>
       })}
       </InfiniteScroll>
     </div>
