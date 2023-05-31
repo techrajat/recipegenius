@@ -14,8 +14,6 @@ body {
 .navbar {
     background-color: #F5F7FA;
     padding: 10px;
-    position: sticky;
-    top: 0;
     z-index: 1;
 }
 
@@ -132,7 +130,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 60.04px);
+    height: 100vh;
 }
 
 .hero h1{
@@ -202,29 +200,27 @@ body {
     align-items: center;
 }
 
-#recipes{
-    width: 80%;
+.recipes{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-}
-
-#recipes{
     cursor: pointer;
 }
 
-#similar:hover{
+.similar:hover{
     color: darkgreen;
 }
 
-#recipes img{
+.recipes img{
     border-radius: 15px;
 }
 
 .title pre{
     font-family: 'Roboto', sans-serif;
     font-size: large;
+    width: 600px;
+    text-align: center;
 }
 
 .title a, .title i{
@@ -233,16 +229,16 @@ body {
 
 .divider{
     height: 0.5px;
-    width: 80%;
+    width: 100%;
     background-color: #ddd;
-    margin: 20px 0;
+    margin: 20px;
 } 
 
-#recipes:hover .img img {
+.recipes:hover .img img {
     transform: scale(1.1);
 }
   
-#recipes:hover .title {
+.recipes:hover .title {
     transform: translateY(-10px);
 }
 

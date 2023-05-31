@@ -4,19 +4,13 @@ import { useNavigate } from 'react-router-dom';
 function Hero(props) {
   const navigate = useNavigate();
 
-  // Search for the recipe entered by user, store results in local storage and navigate to Recipe.js :-
-  const recipe=async(str)=>{
-    let data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${props.apiKey}&query=${str}&number=10`);
-    let parsedData = await data.json();
-    parsedData = JSON.stringify(parsedData);
-    localStorage.setItem('recipes', parsedData);
-    navigate('/recipeContainer');
-  };
+  // Save the recipe string entered by user in local storage and navigate to RecipeContainer.js :-
   const handleRecipeForm=async(event)=>{
     event.preventDefault();
     let str = document.getElementById('searchValue').value;
     if(str){
-      recipe(str);
+      localStorage.setItem('str', str);
+      navigate('/recipeContainer');
     }
   };
 
