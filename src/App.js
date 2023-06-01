@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import Registration from './components/Registration';
 import RecipeContainer from './components/RecipeContainer';
 import LoadingBar from 'react-top-loading-bar';
+import RecipeInfo from './components/RecipeInfo';
 import{
   BrowserRouter as Router,
   Routes,
@@ -38,6 +39,7 @@ export default function App() {
           <Route exact path='/' element={<Hero apiKey={apiKey}/>}></Route>
           <Route exact path='/register' element={<Registration server={server} openModal={openModal}/>}></Route>
           <Route exact path='/recipeContainer' element={<RecipeContainer apiKey={apiKey} setProgress={setProgress}/>}></Route>
+          <Route exact path='/recipeInfo' element={<RecipeInfo/>}></Route>
         </Routes>
       </Router>
     </div>

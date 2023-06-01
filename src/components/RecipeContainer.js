@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Recipe from './Recipe';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Spinner from './Spinner';
+import { useNavigate } from 'react-router-dom';
 
 function RecipeContainer(props) {
+  const navigate = useNavigate();
+
   const [numRecipe, setNumRecipe] = useState(0); // Will store index of recipes to be shown
   const [totalResults, setTotalResults] = useState(0);
 
@@ -27,7 +30,6 @@ function RecipeContainer(props) {
   
   useEffect(()=>{
     fetchRecipe();
-    console.log(recipeToShow)
     // eslint-disable-next-line
   }, []);
   
@@ -37,9 +39,16 @@ function RecipeContainer(props) {
     setNumRecipe(numRecipe + 4);
   }
 
+  // To determine whether the user has chosen a recipe (1 if yes) and then open RecipeInfo.js:-
+  const [recipeClicked, setRecipeClicked] = useState(0);
+  useEffect(()=>{
+    if(recipeClicked){
+      navigate('/recipeInfo');
+    }
+  }, [recipeClicked, navigate]);
+
   return (
     <div id='recipesContainer'>
-      <div className="divider"></div>
       <InfiniteScroll
         dataLength={recipeToShow.length}
         next={fetchMoreRecipes}
@@ -47,7 +56,7 @@ function RecipeContainer(props) {
         loader={<Spinner/>}
       >
       {recipeToShow.map((element)=>{
-        return <Recipe key={element.id} imgSrc={element.image} title={element.title} recipeID={element.id} apiKey={props.apiKey}/>
+        return <Recipe key={element.id} imgSrc={element.image} title={element.title} recipeID={element.id} apiKey={props.apiKey} setRecipeClicked={setRecipeClicked}/>
       })}
       </InfiniteScroll>
     </div>
