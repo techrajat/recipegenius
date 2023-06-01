@@ -22,7 +22,7 @@ function RecipeContainer(props) {
     let recipes = await data.json();
     props.setProgress(70);
     setRecipe(recipes.results);
-    setTotalResults(recipes.number);
+    setTotalResults(recipes.totalResults);
     // It takes time to update state variable. Hence, we cannot use recipe.slice in the next line.
     setRecipeToShow(recipes.results.slice(0, numRecipe+4));
     props.setProgress(100);
@@ -31,7 +31,7 @@ function RecipeContainer(props) {
   useEffect(()=>{
     fetchRecipe();
     // eslint-disable-next-line
-  }, []);
+  }, [localStorage.getItem('searchStr')]);
   
   // Fetching more recipes for infinite scroll :-
   const fetchMoreRecipes=()=>{

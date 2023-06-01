@@ -3,8 +3,11 @@ import '../App.css'
 import Logo from '../images/Logo.png'
 import Login from './Login';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar(props) {
+    const navigate = useNavigate();
+
     // Disable the navbar when modal is open :-
     useEffect(()=>{
         if(props.modalIsOpen){
@@ -62,6 +65,20 @@ function Navbar(props) {
             });
         }
     }, [login]);
+
+    // Save the recipe string entered by user in local storage and navigate to RecipeContainer.js :-
+    const handleRecipeForm=async(event)=>{
+            event.preventDefault();
+            let str = document.getElementById('navSearch').value;
+            document.getElementById('navSearch').value = null;
+            if(window.innerWidth < 992){ // Close the navbar after search in mobile view
+                document.querySelector('.navbar-toggler').click();
+            }
+            if(str){
+            localStorage.setItem('searchStr', `https://api.spoonacular.com/recipes/complexSearch?apiKey=${props.apiKey}&query=${str}&number=100`);
+            navigate('/recipeContainer');
+        }
+    };
 
   return (
     <div>
@@ -129,8 +146,8 @@ function Navbar(props) {
                 </ul>
                 </li>
             </ul>
-            <form className="d-flex" role="search">
-                <input className="form-control me-2 search" type="search" placeholder="Search for recipe, nutrients, ingredients" aria-label="Search"/>
+            <form className="d-flex" role="search" onSubmit={handleRecipeForm}>
+                <input className="form-control me-2 search" id='navSearch' type="search" placeholder="Search for recipe, nutrients, ingredients" aria-label="Search"/>
                 <button className="btn btn-outline-success" type="submit">Search</button>
             </form>
             </div>
