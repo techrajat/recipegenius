@@ -208,6 +208,7 @@ body {
     align-items: center;
     cursor: pointer;
     width: 950px;
+    height: 320px;
 }
 
 .recipes img{
@@ -237,6 +238,8 @@ body {
 .title {
     transition: transform 0.3s ease;
     font-size: large;
+    width: 344px;
+    text-align: center;
 }
 
 @media(width < 992px){
@@ -257,7 +260,6 @@ body {
 @media(width < 600px){
     .recipes{
         height: 350px;
-        width: 270px;
     }
     .img img{
         width: 210px;

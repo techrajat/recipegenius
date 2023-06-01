@@ -34,7 +34,7 @@ export default function App() {
     <div>
       <Router>
         <LoadingBar color='green' progress={progress}/>
-        <Navbar server={server} modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal}></Navbar>        
+        <Navbar server={server} apiKey={apiKey} modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal}></Navbar>        
         <Routes>
           <Route exact path='/' element={<Hero apiKey={apiKey}/>}></Route>
           <Route exact path='/register' element={<Registration server={server} openModal={openModal}/>}></Route>
