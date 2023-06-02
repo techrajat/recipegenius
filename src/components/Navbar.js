@@ -129,16 +129,13 @@ function Navbar(props) {
                     <li className="mobileToggle"><Link className="dropdown-item cuisine">American</Link></li>
                 </ul>
                 </li>
-                <li className="nav-item mobileToggle">
-                <Link className="nav-link" aria-current="page" to="/">Restaurants</Link>
-                </li>
                 <li className="nav-item mobileToggle" id='navLoginBT'>
                 <Login server={props.server} modalIsOpen={props.modalIsOpen} openModal={props.openModal} closeModal={props.closeModal} setLogin={setLogin}/>
                 </li>
                 <li className="nav-item dropdown" id='userDropdown'>
                 <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false" id='username'></Link>
                 <ul className="dropdown-menu">
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Liked videos</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Liked recipes</Link></li>
                     <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><Link className="dropdown-item" to="/" id='logout'>Logout</Link></li>
                 </ul>
