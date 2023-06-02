@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 
 function RecipeInfo() {
@@ -25,14 +26,24 @@ function RecipeInfo() {
     fetchInstructions();
   }, [])
 
+  // Like button :-
+  const [like, setLike] = useState(0);
   // Javscript for like button :-
   useEffect(()=>{
       let likeBtn = document.querySelector('.like-review');
       likeBtn.addEventListener('click', ()=>{
+        if(!like){
           likeBtn.innerHTML = '<i class="fa fa-heart" aria-hidden="true"></i> You liked this';
           document.querySelector('.fa-heart').classList.add('animate-like');
+          setLike(1);
+        }
+        else{
+          likeBtn.innerHTML = "<i class='fa fa-heart' aria-hidden='true'></i> Like";
+          document.querySelector('.fa-heart').classList.remove('animate-like');
+          setLike(0);
+        }
     });
-  }, []);
+  }, [like]);
 
   return (
     <div id='recipeInfo'>
@@ -56,7 +67,7 @@ function RecipeInfo() {
           Did you like this recipe?
         </span>
         <button class="btn-secondary like-review">
-          <i class="fa fa-heart" aria-hidden="true"></i> Like
+          <i class='fa fa-heart' aria-hidden='true'></i> Like
         </button>
       </div>
     </div>
