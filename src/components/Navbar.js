@@ -80,6 +80,18 @@ function Navbar(props) {
         }
     };
 
+    // Search for the cuisine selected by the user :-
+    useEffect(()=>{
+        document.querySelectorAll('.cuisine').forEach((element)=>{
+            element.addEventListener('click', (event)=>{
+                let str = element.innerHTML;
+                localStorage.setItem('searchStr', `https://api.spoonacular.com/recipes/complexSearch?apiKey=${props.apiKey}&query=${str}&number=100`);
+                navigate('/recipeContainer');
+            });
+        });
+    // eslint-disable-next-line
+    }, []);
+
   return (
     <div>
         <nav className="navbar navbar-expand-lg fixed-top">
@@ -95,40 +107,26 @@ function Navbar(props) {
                 </li>
                 <li className="nav-item dropdown">
                 <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Recipes
-                </Link>
-                <ul className="dropdown-menu">
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Breakfast</Link></li>
-                    <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Lunch</Link></li>
-                    <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Dinner</Link></li>
-                </ul>
-                </li>
-                <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Cuisines
                 </Link>
                 <ul className="dropdown-menu scrollbar">
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Italian</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item cuisine">Italian</Link></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Mexican</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item cuisine">Mexican</Link></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Chinese</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item cuisine">Chinese</Link></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Indian</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item cuisine">Indian</Link></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Thai</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item cuisine">Thai</Link></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Japanese</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item cuisine">Japanese</Link></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">French</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item cuisine">French</Link></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Spanish</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item cuisine">Spanish</Link></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">American</Link></li>
-                    <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">More...</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item cuisine">American</Link></li>
                 </ul>
                 </li>
                 <li className="nav-item mobileToggle">
