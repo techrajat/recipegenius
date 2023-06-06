@@ -18,6 +18,10 @@ export default function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
   const server = 'http://127.0.0.1:5000/api';
 
+  // To maintain information whether a user is logged in or not :-
+  const [login, setLogin] = useState(false);
+
+  // Sets the progress of the progress bar of RecipeContainer.js :-
   const [progress, setProgress] = useState(0);
 
   // Functions to toggle the login modal :-
@@ -28,18 +32,22 @@ export default function App() {
   function closeModal() {
       setIsOpen(false);
   }
+
+  // To store the id of the recipe selected by the user :-
+  const [selectedRecipeID, setSelectedRecipeID] = useState(null);
+
   return (
     // Router displays one element at a time. Hence the <login> component should not be present
     // in the router as it is displayed over all the components.
     <div>
       <Router>
         <LoadingBar color='green' progress={progress}/>
-        <Navbar server={server} apiKey={apiKey} modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal}></Navbar>        
+        <Navbar server={server} apiKey={apiKey} modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} login={login} setLogin={setLogin}></Navbar>        
         <Routes>
           <Route exact path='/' element={<Hero apiKey={apiKey}/>}></Route>
           <Route exact path='/register' element={<Registration server={server} openModal={openModal}/>}></Route>
-          <Route exact path='/recipeContainer' element={<RecipeContainer apiKey={apiKey} setProgress={setProgress}/>}></Route>
-          <Route exact path='/recipeInfo' element={<RecipeInfo/>}></Route>
+          <Route exact path='/recipeContainer' element={<RecipeContainer apiKey={apiKey} setProgress={setProgress} setSelectedRecipeID={setSelectedRecipeID}/>}></Route>
+          <Route exact path='/recipeInfo' element={<RecipeInfo server={server} selectedRecipeID={selectedRecipeID} setSelectedRecipeID={setSelectedRecipeID} openModal={openModal} login={login}/>}></Route>
         </Routes>
       </Router>
     </div>
