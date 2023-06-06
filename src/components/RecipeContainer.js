@@ -56,7 +56,7 @@ function RecipeContainer(props) {
         loader={<Spinner/>}
       >
       {recipeToShow.map((element)=>{
-        return <Recipe key={element.id} imgSrc={element.image} title={element.title} recipeID={element.id} apiKey={props.apiKey} setRecipeClicked={setRecipeClicked}/>
+        return <Recipe key={element.id} imgSrc={element.image} title={element.title} recipeID={element.id} apiKey={props.apiKey} setRecipeClicked={setRecipeClicked} setSelectedRecipeID={props.setSelectedRecipeID}/>
       })}
       </InfiniteScroll>
     </div>

@@ -26,6 +26,7 @@ function Recipe(props) {
             element.addEventListener('click', ()=>{
                 let recipeid = element.id;
                 recipeid = parseInt(recipeid.match(/\d+(\.\d+)?/g));
+                props.setSelectedRecipeID(recipeid);
                 localStorage.setItem('instructionsStr', `https://api.spoonacular.com/recipes/${recipeid}/information?apiKey=${props.apiKey}`);
                 props.setRecipeClicked(1);
             });

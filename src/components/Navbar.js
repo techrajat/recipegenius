@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import '../App.css'
 import Logo from '../images/Logo.png'
 import Login from './Login';
@@ -32,8 +32,6 @@ function Navbar(props) {
     }, [])
 
     // Check whether a user is logged in or not and then modify the navbar accordingly :-
-    const [login, setLogin] = useState(false);
-
     const getUser=async()=>{ // Function for getting logged in user detais
         let response = await fetch('http://127.0.0.1:5000/api/auth/getuser', {
             method: 'GET',
@@ -47,24 +45,28 @@ function Navbar(props) {
             document.getElementById('userDropdown').style.display = 'block';
             let data = await response.json();
             document.getElementById('username').innerHTML = "<i class='fa-solid fa-user'></i>"+data.userDetails.firstName+" "+data.userDetails.lastName;
+            props.setLogin(true);
         }
         else{
             console.log("Wrong authorization token");
+            props.setLogin(false);
         }
     }
     
     useEffect(()=>{
-        if(login){
-            getUser(); // Get and display user's details when he/she logs in
-            // Logout the user if he/she clicks on the logout button :-
-            document.getElementById('logout').addEventListener('click', ()=>{
-                localStorage.removeItem('token');
-                setLogin(false);
-                document.getElementById('navLoginBT').style.display = 'block';
-                document.getElementById('userDropdown').style.display = 'none';
-            });
+        getUser(); // Get and display user's details when he/she logs in
+    // eslint-disable-next-line
+    }, [props.login]);
+
+    // Logout the user if he/she clicks on the logout button :-
+    const logout=()=>{
+        if(props.login){
+            localStorage.removeItem('token');
+            props.setLogin(false);
+            document.getElementById('navLoginBT').style.display = 'block';
+            document.getElementById('userDropdown').style.display = 'none';
         }
-    }, [login]);
+    }
 
     // Save the recipe string entered by user in local storage and navigate to RecipeContainer.js :-
     const handleRecipeForm=async(event)=>{
@@ -83,7 +85,7 @@ function Navbar(props) {
     // Search for the cuisine selected by the user :-
     useEffect(()=>{
         document.querySelectorAll('.cuisine').forEach((element)=>{
-            element.addEventListener('click', (event)=>{
+            element.addEventListener('click', ()=>{
                 let str = element.innerHTML;
                 localStorage.setItem('searchStr', `https://api.spoonacular.com/recipes/complexSearch?apiKey=${props.apiKey}&query=${str}&number=100`);
                 navigate('/recipeContainer');
@@ -130,14 +132,14 @@ function Navbar(props) {
                 </ul>
                 </li>
                 <li className="nav-item mobileToggle" id='navLoginBT'>
-                <Login server={props.server} modalIsOpen={props.modalIsOpen} openModal={props.openModal} closeModal={props.closeModal} setLogin={setLogin}/>
+                <Login server={props.server} modalIsOpen={props.modalIsOpen} openModal={props.openModal} closeModal={props.closeModal} setLogin={props.setLogin}/>
                 </li>
                 <li className="nav-item dropdown" id='userDropdown'>
                 <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false" id='username'></Link>
                 <ul className="dropdown-menu">
                     <li className="mobileToggle"><Link className="dropdown-item" to="/">Liked recipes</Link></li>
                     <li><hr class="dropdown-divider"/></li>
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/" id='logout'>Logout</Link></li>
+                    <li className="mobileToggle"><button onClick={logout} className="dropdown-item" id='logout'>Logout</button></li>
                 </ul>
                 </li>
             </ul>

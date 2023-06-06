@@ -4,7 +4,6 @@ import { useState } from 'react';
 import '../App.css'
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 let customStyles = {
   content: {
@@ -18,8 +17,6 @@ let customStyles = {
 };
 
 function Login(props) {
-  const navigate = useNavigate();
-
   // Login modal :-
   let subtitle;
   function afterOpenModal() {
@@ -55,11 +52,9 @@ function Login(props) {
     });
     const jsonRes = await response.json();
     if (response.status === 200){
-      // Save the token in local storage and then redirect to the hero component and close the login
-      // modal after succeful login :-
+      // Save the token in local storage and close the loginmodal after succeful login :-
       localStorage.setItem('token', jsonRes.authToken);
       props.setLogin(true);
-      navigate('/');
       props.closeModal();
     }
     if (response.status === 400){
@@ -91,7 +86,7 @@ function Login(props) {
       >
           <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Login</h2>
           <button onClick={props.closeModal} id='modalClose'><i class="fa-solid fa-xmark"></i></button>
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form noValidate validated={validated} onSubmit={handleSubmit} id='loginForm'>
             <Form.Group className='mb-3' controlId="validationCustom06">
               <Form.Label>Email</Form.Label>
               <Form.Control
