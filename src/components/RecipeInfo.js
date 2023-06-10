@@ -26,11 +26,7 @@ function RecipeInfo(props) {
       console.log("Unable to mount the recipeInfo component");
     }
   }
-
   useEffect(()=>{
-    // Set the id of the selected recipe :-
-    props.setSelectedRecipeID(parseInt(localStorage.getItem('selectedRecipeID')));
-    // Fetch recipe instructions :-
     fetchInstructions();
     // eslint-disable-next-line
   }, [])
@@ -72,14 +68,14 @@ function RecipeInfo(props) {
         document.querySelector('.fa-heart').classList.add('animate-like');
         setLike(1);
         // Make a request for liking the recipe :-
-        likeRecipe(props.selectedRecipeID);
+        likeRecipe(parseInt(localStorage.getItem('selectedRecipe')));
       }
       else{
         likeBtn.innerHTML = "<i class='fa fa-heart' aria-hidden='true'></i> Like";
         document.querySelector('.fa-heart').classList.remove('animate-like');
         setLike(0);
         // Make a request for removing like from the recipe :-
-        dislikeRecipe(props.selectedRecipeID);
+        dislikeRecipe(parseInt(localStorage.getItem('selectedRecipe')));
       }
     }
     else{
@@ -99,7 +95,7 @@ function RecipeInfo(props) {
     const likedRecipes = await data.json();
     if(data.status === 200){
       likedRecipes.forEach((element)=>{
-        if(element.recipeID === props.selectedRecipeID){
+        if(element.recipeID === parseInt(localStorage.getItem('selectedRecipe'))){
           document.querySelector('.like-review').innerHTML = '<i class="fa fa-heart" aria-hidden="true"></i> You liked this';
           setLike(1);
         }
