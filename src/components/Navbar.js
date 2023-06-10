@@ -33,7 +33,7 @@ function Navbar(props) {
 
     // Check whether a user is logged in or not and then modify the navbar accordingly :-
     const getUser=async()=>{ // Function for getting logged in user detais
-        let response = await fetch('http://127.0.0.1:5000/api/auth/getuser', {
+        let response = await fetch(`${props.server}/auth/getuser`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ function Navbar(props) {
                 <li className="nav-item dropdown" id='userDropdown'>
                 <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false" id='username'></Link>
                 <ul className="dropdown-menu">
-                    <li className="mobileToggle"><Link className="dropdown-item" to="/">Liked recipes</Link></li>
+                    <li className="mobileToggle"><Link className="dropdown-item" to="/likedRecipes">Liked recipes</Link></li>
                     <li><hr class="dropdown-divider"/></li>
                     <li className="mobileToggle"><button onClick={logout} className="dropdown-item" id='logout'>Logout</button></li>
                 </ul>

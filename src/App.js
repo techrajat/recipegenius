@@ -7,12 +7,8 @@ import Registration from './components/Registration';
 import RecipeContainer from './components/RecipeContainer';
 import LoadingBar from 'react-top-loading-bar';
 import RecipeInfo from './components/RecipeInfo';
-import{
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from 'react-router-dom';
-
+import LikedRecipes from './components/LikedRecipes';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export default function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
@@ -48,6 +44,7 @@ export default function App() {
           <Route exact path='/register' element={<Registration server={server} openModal={openModal}/>}></Route>
           <Route exact path='/recipeContainer' element={<RecipeContainer apiKey={apiKey} setProgress={setProgress}/>}></Route>
           <Route exact path='/recipeInfo' element={<RecipeInfo server={server} openModal={openModal} login={login}/>}></Route>
+          <Route exact path='/likedRecipes' element={<LikedRecipes apiKey={apiKey} server={server}/>}></Route>
         </Routes>
       </Router>
     </div>
