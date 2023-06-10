@@ -34,7 +34,7 @@ export default function App() {
   }
 
   // To store the id of the recipe selected by the user :-
-  const [selectedRecipeID, setSelectedRecipeID] = useState(null);
+  // const [selectedRecipeID, setSelectedRecipeID] = useState(null);
 
   return (
     // Router displays one element at a time. Hence the <login> component should not be present
@@ -46,8 +46,8 @@ export default function App() {
         <Routes>
           <Route exact path='/' element={<Hero apiKey={apiKey}/>}></Route>
           <Route exact path='/register' element={<Registration server={server} openModal={openModal}/>}></Route>
-          <Route exact path='/recipeContainer' element={<RecipeContainer apiKey={apiKey} setProgress={setProgress} setSelectedRecipeID={setSelectedRecipeID}/>}></Route>
-          <Route exact path='/recipeInfo' element={<RecipeInfo server={server} selectedRecipeID={selectedRecipeID} setSelectedRecipeID={setSelectedRecipeID} openModal={openModal} login={login}/>}></Route>
+          <Route exact path='/recipeContainer' element={<RecipeContainer apiKey={apiKey} setProgress={setProgress}/>}></Route>
+          <Route exact path='/recipeInfo' element={<RecipeInfo server={server} openModal={openModal} login={login}/>}></Route>
         </Routes>
       </Router>
     </div>
