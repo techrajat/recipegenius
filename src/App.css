@@ -242,8 +242,19 @@ body {
     text-align: center;
 }
 
-.spinner-border{
+#likedRecipesContainer{
+    padding-top: 0;
+}
+
+#spinner{
     margin: 30px;
+}
+
+#likedRecipeHead{
+    margin-top: 90px;
+    text-align: center;
+    color: green;
+    text-decoration-line: underline;
 }
 
 @media(width < 992px){
