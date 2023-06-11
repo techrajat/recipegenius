@@ -1,4 +1,6 @@
-<div style="text-align: center;"><img src="https://i.imgur.com/2OweQxN.png" alt="RecipeGenius" width="50%"></div><br>
+<p align="center">
+  <img src="https://i.imgur.com/2OweQxN.png" alt="RecipeGenius" width="50%">
+</p>
 
 ## Prerequisites
 
