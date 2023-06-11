@@ -33,23 +33,28 @@ function Navbar(props) {
 
     // Check whether a user is logged in or not and then modify the navbar accordingly :-
     const getUser=async()=>{ // Function for getting logged in user detais
-        let response = await fetch(`${props.server}/auth/getuser`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'authToken': localStorage.getItem('token')
+        try{
+            let response = await fetch(`${props.server}/auth/getuser`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authToken': localStorage.getItem('token')
+                }
+            });
+            if(response.status === 200){
+                document.getElementById('navLoginBT').style.display = 'none';
+                document.getElementById('userDropdown').style.display = 'block';
+                let data = await response.json();
+                document.getElementById('username').innerHTML = "<i class='fa-solid fa-user'></i>"+data.userDetails.firstName+" "+data.userDetails.lastName;
+                props.setLogin(true);
             }
-        });
-        if(response.status === 200){
-            document.getElementById('navLoginBT').style.display = 'none';
-            document.getElementById('userDropdown').style.display = 'block';
-            let data = await response.json();
-            document.getElementById('username').innerHTML = "<i class='fa-solid fa-user'></i>"+data.userDetails.firstName+" "+data.userDetails.lastName;
-            props.setLogin(true);
+            else{
+                console.log("Wrong authorization token");
+                props.setLogin(false);
+            }
         }
-        else{
-            console.log("Wrong authorization token");
-            props.setLogin(false);
+        catch{
+            console.log("Start the MongoDB server.");
         }
     }
     

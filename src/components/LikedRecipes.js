@@ -11,7 +11,7 @@ function LikedRecipes(props) {
     const [likedRecipeIDs, setLikedRecipesIDs] = useState([]);
     const [totalResults, setTotalResults] = useState(0);
 
-    // Fetch the IDs of liked recipes and then fetch the first two recipes :-
+    // Fetch the IDs of liked recipes and then fetch the first three recipes :-
     const fetchRecipes=async()=>{
         const data = await fetch(`${props.server}/recipe/fetchlike`, {
           method: 'GET',
@@ -25,7 +25,7 @@ function LikedRecipes(props) {
           setLikedRecipesIDs(dataJson);
           setTotalResults(dataJson.length);
           let likedRecipes = [];
-          dataJson.slice(0, 2).forEach(async(element)=>{
+          dataJson.slice(0, 3).forEach(async(element)=>{
             let recipe = await fetch(`https://api.spoonacular.com/recipes/${element.recipeID}/information?apiKey=${props.apiKey}`);
             recipe = await recipe.json();
             likedRecipes = likedRecipes.concat({id: recipe.id, image: recipe.image, title: recipe.title});
@@ -49,11 +49,15 @@ function LikedRecipes(props) {
     const [recipeClicked, setRecipeClicked] = useState(0);
     useEffect(()=>{
         if(recipeClicked){
-        navigate('/recipeInfo');
+          navigate('/recipeInfo');
         }
     }, [recipeClicked, navigate]);
 
   return (
+    <>
+    <div id="likedRecipeHead">
+      <h2>Liked recipes</h2>
+    </div>
     <div id='likedRecipesContainer'>
       <InfiniteScroll
         dataLength={recipeToShow.length}
@@ -62,10 +66,11 @@ function LikedRecipes(props) {
         loader={<Spinner/>}
       >
       {recipeToShow.map((element)=>{
-        return <Recipe className="likedRecipes" key={element.id} imgSrc={element.image} title={element.title} recipeID={element.id} apiKey={props.apiKey} setRecipeClicked={setRecipeClicked} />
+        return <Recipe key={element.id} imgSrc={element.image} title={element.title} recipeID={element.id} apiKey={props.apiKey} setRecipeClicked={setRecipeClicked} />
       })}
       </InfiniteScroll>
     </div>
+    </>
   )
 }
 
