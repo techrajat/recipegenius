@@ -6,7 +6,7 @@ RecipeGenius is a web application built with the MERN stack that generates recip
 
 Before running the RecipeGenius application, make sure you have the following prerequisites installed:
 
-- [Node.js](https://nodejs.org/) (v16 or higher)
+- [Node.js](https://nodejs.org/) (v18 or higher)
 - [npm](https://www.npmjs.com/) (v9.6 or higher)
 - [MongoDB](https://www.mongodb.com/try/download/community) (running locally)
 
