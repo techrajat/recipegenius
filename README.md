@@ -7,7 +7,7 @@ RecipeGenius is a web application built with the MERN stack that generates recip
 Before running the RecipeGenius application, make sure you have the following prerequisites installed:
 
 - [Node.js](https://nodejs.org/) (v16 or higher)
-- [MongoDB](https://www.mongodb.com/) (running locally)
+- [MongoDB](https://www.mongodb.com/try/download/community) (running locally)
 
 ## Installation
 
@@ -23,7 +23,7 @@ git clone https://github.com/your-username/recipegenius.git
 mongod
 ```
 
-> Note: If you already have MongoDB running, you can skip this step.
+> Note: If you already have MongoDB local server running, you can skip this step.
 
 3. Navigate to the backend folder:
 
@@ -59,7 +59,17 @@ cd ../
 npm install
 ```
 
-8. Start the React frontend:
+8. Obtain Spoonacular API key:
+
+   - Visit [Spoonacular API](https://spoonacular.com/food-api) and create an account (if you don't have one).
+   - Request an API key from Spoonacular.
+
+9. Replace API key in `.env.example`:
+
+   - Rename `.env.example` file to `.env` in the root folder of the app.
+   - Open `.env` file and replace `my-api-key` in `REACT_APP_API_KEY="my-api-key"` with your actual Spoonacular API key.
+
+10. Start the React frontend:
 
 ```shell
 npm start
