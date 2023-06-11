@@ -56,7 +56,7 @@ function LikedRecipes(props) {
   return (
     <>
     <div id="likedRecipeHead">
-      <h2>Liked recipes</h2>
+      <h3>Liked recipes</h3>
     </div>
     <div id='likedRecipesContainer'>
       <InfiniteScroll
