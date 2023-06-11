@@ -7,6 +7,7 @@ RecipeGenius is a web application built with the MERN stack that generates recip
 Before running the RecipeGenius application, make sure you have the following prerequisites installed:
 
 - [Node.js](https://nodejs.org/) (v16 or higher)
+- [npm](https://www.npmjs.com/) (v9.6 or higher)
 - [MongoDB](https://www.mongodb.com/try/download/community) (running locally)
 
 ## Installation
@@ -18,12 +19,11 @@ git clone https://github.com/your-username/recipegenius.git
 ```
 
 2. Start the MongoDB local server:
+> Note: If you already have MongoDB local server running, you can skip this step.
 
 ```shell
 mongod
 ```
-
-> Note: If you already have MongoDB local server running, you can skip this step.
 
 3. Navigate to the backend folder:
 
