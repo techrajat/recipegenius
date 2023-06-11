@@ -1,6 +1,4 @@
-# RecipeGenius
-
-RecipeGenius is a web application built with the MERN stack that generates recipes using the Spoonacular API.
+![RecipeGenius](src/images/Logo.png)<br><br>
 
 ## Prerequisites
 
