@@ -1,3 +1,5 @@
+https://github.com/techrajat/recipegenius/assets/118634923/9f6bea7c-b26b-44f9-8bf5-77c79f540c2f
+
 <p align="center">
   <img src="https://i.imgur.com/2OweQxN.png" alt="RecipeGenius" width="50%">
 </p>
