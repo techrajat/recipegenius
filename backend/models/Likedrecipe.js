@@ -17,5 +17,5 @@ const RecipeSchema = new Schema({
     }
 });
 
-const LikedRecipe = mongoose.model('Recipe', RecipeSchema);
+const LikedRecipe = mongoose.model('likedrecipes', RecipeSchema);
 module.exports = LikedRecipe;
