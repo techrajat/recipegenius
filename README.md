@@ -27,7 +27,7 @@ Before running the RecipeGenius application, make sure you have the following pr
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/your-username/recipegenius.git
+git clone https://github.com/techrajat/recipegenius.git
 ```
 
 2. Obtain Spoonacular API key:
