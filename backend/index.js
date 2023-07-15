@@ -7,7 +7,7 @@ const hostname = '127.0.0.1';
 const port = 5000;
 const connectToDatabase=async()=>{
     try{
-        await mongoose.connect('mongodb://127.0.0.1:27017/recipeMasters');
+        await mongoose.connect('mongodb://127.0.0.1:27017/recipeGenius');
         console.log('Connected to MongoDB');
     }catch (error){
         console.error('An error occurred:', error);
